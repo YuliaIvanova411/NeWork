@@ -35,6 +35,11 @@
           <theme>@style/Theme.NeWork</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_greeting.xml">
+        <config>
+          <theme>@style/Theme.NeWork</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_image.xml">
         <config>
           <theme>@style/Theme.NeWork</theme>
@@ -60,6 +65,11 @@
           <theme>@style/Theme.NeWork</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml">
+        <config>
+          <theme>@style/Theme.NeWork</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/place.xml">
         <config>
           <theme>@style/Theme.NeWork</theme>
@@ -76,17 +86,34 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97e0fbfd-b6c1-46b1-8443-0165135dd4f5" name="Changes" comment="api, post, appdb, wall, event" />
+    <list default="true" id="97e0fbfd-b6c1-46b1-8443-0165135dd4f5" name="Changes" comment="wtf is going on">
+      <change afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/repository/user/UserRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/repository/user/UserRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/ui/MediaLifecycleObserver.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/ui/auth/GreetingFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/ui/profile/UserFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/view/ViewExtensions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/viewmodel/RegisterViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/nework/viewmodel/UserViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/error_100dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/greeting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/job.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_100dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/no_avatar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/user.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_greeting.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ChangesViewManager" show_ignored="true">
-    <option name="groupingKeys">
-      <option value="directory" />
-      <option value="module" />
-    </option>
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
@@ -130,7 +157,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2mqZP1sgvccRUNxTvhZafCdG3fg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -145,7 +174,10 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/AndroidProjects/NeWork/app/src/main/java/com/example/nework/repository/event",
+    "last_opened_file_path": "D:/AndroidProjects/NeWork/app/src/main/res/drawable",
+    "project.structure.last.edited": "Dependencies",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation"
   },
   "keyToStringList": {
@@ -156,11 +188,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework\repository\event" />
-      <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework\entity" />
-      <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework\dao" />
-      <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework\repository\auth\post" />
+      <recent name="D:\AndroidProjects\NeWork\app\src\main\res\drawable" />
+      <recent name="D:\AndroidProjects\NeWork\app\src\main\res\layout" />
+      <recent name="D:\AndroidProjects\NeWork\app\src\main\res\navigation" />
       <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework" />
+      <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework\repository" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\AndroidProjects\NeWork\app\src\main\java\com\example\nework\theme" />
@@ -169,11 +201,11 @@
       <recent name="com.example.nework.ui" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="com.example.nework.repository.event" />
+      <recent name="com.example.nework.ui.auth" />
+      <recent name="com.example.nework.ui.profile" />
+      <recent name="com.example.nework.ui" />
       <recent name="com.example.nework.viewmodel" />
-      <recent name="com.example.nework.enumeration" />
-      <recent name="com.example.nework.model" />
-      <recent name="com.example.nework.dto" />
+      <recent name="com.example.nework.repository.event" />
     </key>
   </component>
   <component name="RunManager">
@@ -277,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728580568786</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="wtf is going on">
+      <option name="closed" value="true" />
+      <created>1728581415744</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728581415744</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,6 +335,7 @@
     <MESSAGE value="auth, dto, api template" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="api, post, appdb, wall, event" />
-    <option name="LAST_COMMIT_MESSAGE" value="api, post, appdb, wall, event" />
+    <MESSAGE value="wtf is going on" />
+    <option name="LAST_COMMIT_MESSAGE" value="wtf is going on" />
   </component>
 </project>

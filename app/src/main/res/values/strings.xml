@@ -33,4 +33,8 @@
     <string name="finish">Finish</string>
     <string name="create_post">Create</string>
     <string name="position">Position</string>
+    <string name="avatar">Avatar</string>
+    <string name="name">Name</string>
+    <string name="greeting">Greeting</string>
+    <string name="join">Join</string>
 </resources>
