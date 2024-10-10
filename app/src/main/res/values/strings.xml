@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">NeWork</string>
+    <string name="description_post_author_avatar">Post author avatar</string>
+    <string name="description_post_menu">Post menu</string>
+    <string name="date_of_event">Date of event</string>
+    <string name="type_of_event">Type of event</string>
+    <string name="attachment">Attachment</string>
+    <string name="description_like_button">Like</string>
+    <string name="location">Location</string>
+    <string name="edit">Edit</string>
+    <string name="dash">–</string>
+    <string name="button_back">Button back</string>
+    <string name="description_full_screen_image">Full screen image</string>
+    <string name="jobs">Jobs</string>
+    <string name="add_job">Add job</string>
+    <string name="empty_jobs">No jobs added</string>
+    <string name="close_button">Close button</string>
+    <string name="sign_in">Sign in</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="blankAuth">Login or password is blank</string>
+    <string name="invalid_auth">Invalid login/password</string>
+    <string name="error_loading">Something went wrong. Try again later</string>
+    <string name="zoom_in">Zoom in</string>
+    <string name="zoom_out">Zoom out</string>
+    <string name="user_location">User location</string>
+    <string name="latitude_and_longitude">latitude: %s\nlongitude: %s</string>
+    <string name="permission_request">Location permission required</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="place_pin">Place pin</string>
+    <string name="job">Job</string>
+    <string name="start">Start</string>
+    <string name="finish">Finish</string>
+    <string name="create_post">Create</string>
+    <string name="position">Position</string>
+</resources>
