@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import com.example.nework.auth.AppAuth
-import com.example.nework.repository.auth.job.JobRepository
+import com.example.nework.repository.job.JobRepository
 import com.example.nework.utils.SingleLiveEvent
 import javax.inject.Inject
 import com.example.nework.dto.Job

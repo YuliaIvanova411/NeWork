@@ -1,4 +1,4 @@
-package com.example.nework.repository.auth.job
+package com.example.nework.repository.job
 
 import com.example.nework.dto.Job
 import kotlinx.coroutines.flow.Flow

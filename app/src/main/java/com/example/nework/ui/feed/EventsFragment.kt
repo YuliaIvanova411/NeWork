@@ -1,4 +1,4 @@
-package com.example.nework.ui.profile
+package com.example.nework.ui.feed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,32 +12,27 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import com.example.nework.R
-import com.example.nework.databinding.FragmentUserBinding
+import com.example.nework.adapter.FeedAdapter
+import com.example.nework.adapter.OnInteractionListener
+import com.example.nework.databinding.FragmentEventsBinding
+import com.example.nework.dto.Event
 import com.example.nework.dto.FeedItem
-import com.example.nework.dto.Post
 import com.example.nework.enumeration.AttachmentType
 import com.example.nework.ui.MediaLifecycleObserver
 import com.example.nework.ui.attachment.ImageFragment
 import com.example.nework.ui.attachment.VideoFragment
 import com.example.nework.ui.map.MapFragment
-import com.example.nework.view.load
-import com.example.nework.viewmodel.JobViewModel
-import com.example.nework.viewmodel.PostViewModel
-import com.example.nework.viewmodel.UserViewModel
+import com.example.nework.ui.profile.UserFragment
+import com.example.nework.viewmodel.EventViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.example.nework.adapter.FeedAdapter
-import com.example.nework.adapter.OnInteractionListener
 
+class EventsFragment : Fragment() {
 
-class UserFragment : Fragment() {
-
-    private val userViewModel by activityViewModels<UserViewModel>()
-    private val postViewModel by activityViewModels<PostViewModel>()
-    private val jobViewModel by activityViewModels<JobViewModel>()
-
+    private val eventViewModel by activityViewModels<EventViewModel>()
     private val mediaObserver = MediaLifecycleObserver()
 
     override fun onCreateView(
@@ -45,57 +40,30 @@ class UserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentUserBinding.inflate(inflater, container, false)
-
-        val userId = requireArguments().getInt(USER_ID)
-
-        userViewModel.getUserById(userId)
-        jobViewModel.getJobsByUserId(userId)
-
-        userViewModel.user.observe(viewLifecycleOwner) { user ->
-            binding.titleName.text = user.name
-            user.avatar?.let { binding.userAvatar.load(it) }
-                ?: binding.userAvatar.setImageResource(R.drawable.no_avatar)
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                jobViewModel.data.collectLatest { jobsList ->
-                    if (jobsList.isNotEmpty()) {
-                        val job = jobViewModel.getCurrentJob(jobsList)
-                        binding.titlePosition.text = job.position
-                        binding.titleWork.text = job.name
-                    }
-                }
-            }
-        }
-
-        binding.iconJob.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_userFragment_to_jobsFragment,
-                bundleOf(JobsFragment.USER_ID to userId)
-            )
-        }
-
-        binding.back.setOnClickListener {
-            findNavController().navigateUp()
-        }
+        val binding = FragmentEventsBinding.inflate(inflater, container, false)
 
         val adapter = FeedAdapter(object : OnInteractionListener {
             override fun onLike(feedItem: FeedItem) {
-                postViewModel.likeById(feedItem as Post)
+                eventViewModel.likeById(feedItem as Event)
             }
 
             override fun onRemove(id: Int) {
-                postViewModel.wallRemoveById(id)
+                eventViewModel.removeById(id)
             }
 
             override fun onEdit(feedItem: FeedItem) {
-                findNavController().navigate(R.id.action_userFragment_to_newPostFragment)
-                postViewModel.edit(feedItem as Post)
+                findNavController().navigate(R.id.action_feedFragment_to_newEventFragment)
+                eventViewModel.edit(feedItem as Event)
             }
 
-            override fun onUser(userId: Int) = Unit
+            override fun onUser(userId: Int) {
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_userFragment,
+                    bundleOf(
+                        UserFragment.USER_ID to userId
+                    )
+                )
+            }
 
             override fun onPlayPause(feedItem: FeedItem) {
                 if (feedItem.attachment?.type == AttachmentType.AUDIO) {
@@ -105,7 +73,7 @@ class UserFragment : Fragment() {
 
             override fun onCoordinates(lat: Double, long: Double) {
                 findNavController().navigate(
-                    R.id.action_userFragment_to_mapFragment,
+                    R.id.action_feedFragment_to_mapFragment,
                     bundleOf(
                         MapFragment.LAT_KEY to lat,
                         MapFragment.LONG_KEY to long
@@ -115,7 +83,7 @@ class UserFragment : Fragment() {
 
             override fun onVideo(url: String) {
                 findNavController().navigate(
-                    R.id.action_userFragment_to_videoFragment,
+                    R.id.action_feedFragment_to_videoFragment,
                     bundleOf(
                         VideoFragment.URL to url
                     )
@@ -124,24 +92,31 @@ class UserFragment : Fragment() {
 
             override fun onImage(url: String) {
                 findNavController().navigate(
-                    R.id.action_userFragment_to_imageFragment,
+                    R.id.action_feedFragment_to_imageFragment,
                     bundleOf(
                         ImageFragment.URL to url
                     )
                 )
             }
         })
-        binding.listContainer.adapter = adapter
+
+        binding.listEvents.adapter = adapter
+
+        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                if (positionStart == 0) {
+                    binding.listEvents.smoothScrollToPosition(0)
+                }
+            }
+        })
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                postViewModel.wallData(userId).collectLatest { wall ->
-                    adapter.submitData(wall)
-                }
+            eventViewModel.data.collectLatest { data ->
+                adapter.submitData(data)
             }
         }
 
-        userViewModel.userDataState.observe(viewLifecycleOwner) { state ->
+        eventViewModel.dataState.observe(viewLifecycleOwner) { state ->
             binding.swiperefresh.isRefreshing = state.refreshing
             if (state.error) {
                 Snackbar.make(binding.root, R.string.error_loading, Snackbar.LENGTH_LONG)
@@ -158,16 +133,12 @@ class UserFragment : Fragment() {
             }
         }
 
-        binding.swiperefresh.setOnRefreshListener(adapter::refresh)
-
         mediaObserver.player?.setOnCompletionListener {
             mediaObserver.player?.stop()
         }
 
-        return binding.root
-    }
+        binding.swiperefresh.setOnRefreshListener(adapter::refresh)
 
-    companion object {
-        const val USER_ID = "USER_ID"
+        return binding.root
     }
 }

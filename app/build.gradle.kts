@@ -59,6 +59,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.dhaval2404.imagepicker)
     implementation (libs.github.glide)
     implementation (libs.yandex.maps.mobile)
     implementation(libs.androidx.room.common)
@@ -66,6 +67,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.runner)
     implementation(libs.androidx.room.compiler.processing.testing)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.play.services.cast.framework)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation (libs.maps.mobile)
     implementation(libs.logging.interceptor)

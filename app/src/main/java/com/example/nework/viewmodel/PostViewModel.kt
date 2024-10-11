@@ -17,7 +17,7 @@ import com.example.nework.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import com.example.nework.repository.auth.post.PostRepository
+import com.example.nework.repository.post.PostRepository
 import java.io.File
 import javax.inject.Inject
 
@@ -29,7 +29,6 @@ private val empty = Post(
     authorJob = null,
     coords = null,
     link = null,
-    likes = 0,
     content = "",
     published = "",
     mentionedMe = false,

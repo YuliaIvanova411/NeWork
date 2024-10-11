@@ -1,4 +1,4 @@
-package com.example.nework.repository.auth.job
+package com.example.nework.repository.job
 
 import com.example.nework.api.ApiService
 import com.example.nework.entity.job.JobEntity

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/common_spacing">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/close_button"
+            android:padding="@dimen/common_spacing"
+            android:src="@drawable/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/type_event_radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/back">
+
+            <RadioButton
+                android:id="@+id/type_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/color_primary"
+                android:checked="true"
+                android:padding="@dimen/common_spacing"
+                android:text="@string/online"
+                android:textAllCaps="true" />
+
+            <RadioButton
+                android:id="@+id/type_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_spacing"
+                android:text="@string/offline"
+                android:textAllCaps="true" />
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_date"
+            style="@style/Widget.AppTheme.AddButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back" />
+
+        <TextView
+            android:id="@+id/textView_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@id/add_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/add_date"
+            app:layout_constraintTop_toTopOf="@id/add_date"
+            tools:text="01.01.2001" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_time"
+            style="@style/Widget.AppTheme.AddButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_date" />
+
+        <TextView
+            android:id="@+id/textView_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@id/add_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/add_time"
+            app:layout_constraintTop_toTopOf="@id/add_time"
+            tools:text="00:00" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/event_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="type_event_radioGroup, add_date, textView_date, add_time, textView_time" /><![CDATA[
+
+        ]]><com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_new_post"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_post_editText_height"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:padding="@dimen/common_spacing"
+            android:background="@drawable/card_line"
+            app:layout_constraintTop_toBottomOf="@id/add_time" />
+
+        <EditText
+            android:id="@+id/editText_link"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_text_height"
+            android:background="@drawable/card_line"
+            android:hint="@string/link"
+            android:importantForAutofill="no"
+            android:inputType="textUri"
+            android:layout_marginTop="@dimen/common_spacing"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/common_spacing"
+            app:layout_constraintTop_toBottomOf="@id/edit_new_post" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_image_button"
+            style="@style/Widget.AppTheme.AddButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/clear_image"
+            app:layout_constraintTop_toTopOf="@id/clear_image" />
+
+        <TextView
+            android:id="@+id/textView_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@id/clear_image"
+            app:layout_constraintStart_toEndOf="@id/add_image_button"
+            app:layout_constraintEnd_toStartOf="@id/clear_image"
+            app:layout_constraintTop_toTopOf="@id/clear_image"
+            tools:text="123.jpg" />
+
+        <ImageView
+            android:id="@+id/clear_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_spacing"
+            android:padding="@dimen/common_spacing"
+            android:src="@drawable/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editText_link"
+            android:contentDescription="@string/clear_image" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_place_button"
+            style="@style/Widget.AppTheme.AddButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_place"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/clear_coordinates"
+            app:layout_constraintBottom_toBottomOf="@id/clear_coordinates"/>
+
+        <TextView
+            android:id="@+id/textView_lat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@id/clear_coordinates"
+            app:layout_constraintStart_toStartOf="@id/textView_image"
+            app:layout_constraintTop_toTopOf="@id/add_place_button"
+            tools:text="lat" />
+
+        <TextView
+            android:id="@+id/textView_long"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintTop_toTopOf="@id/clear_coordinates"
+            app:layout_constraintBottom_toBottomOf="@id/clear_coordinates"
+            app:layout_constraintEnd_toStartOf="@id/clear_coordinates"
+            app:layout_constraintStart_toStartOf="@id/textView_image"
+            tools:text="long"/>
+
+        <ImageView
+            android:id="@+id/clear_coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_spacing"
+            android:padding="@dimen/common_spacing"
+            android:src="@drawable/delete"
+            android:textColor="@color/color_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clear_image"
+            android:contentDescription="@string/clear_coordinates" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/create_button"
+            style="@style/Widget.AppTheme.SubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_post"
+            app:layout_constraintTop_toBottomOf="@id/clear_coordinates" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

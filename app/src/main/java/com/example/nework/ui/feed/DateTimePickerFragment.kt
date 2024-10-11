@@ -1,4 +1,4 @@
-package com.example.nework.feed
+package com.example.nework.ui.feed
 
 import android.app.DatePickerDialog
 import android.app.Dialog

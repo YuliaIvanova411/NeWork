@@ -1,4 +1,4 @@
-package com.example.nework.repository.auth.post
+package com.example.nework.repository.post
 
 import androidx.paging.*
 import com.example.nework.api.ApiService
