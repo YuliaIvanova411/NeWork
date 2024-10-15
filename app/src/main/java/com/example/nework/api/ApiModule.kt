@@ -9,7 +9,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import ru.netology.community.BuildConfig
 import com.example.nework.auth.AppAuth
 import javax.inject.Singleton
 

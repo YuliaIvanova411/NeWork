@@ -1,42 +1,53 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Widget.AppTheme.PostMenuButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">@color/color_tint</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:minWidth">@dimen/card_post_48</item>
+        <item name="android:minHeight">@dimen/card_post_48</item>
+    </style>
 
-    <style name="Widget.AppTheme.LikeButton" parent="Widget.AppCompat.Button.Borderless">
+    <style name="Widget.AppTheme.LikeButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/like_checkbox_tint</item>
         <item name="icon">@drawable/like_selector</item>
-        <item name="iconTint">@color/color_primary</item>
-        <item name="android:textColor">@color/color_primary</item>
-        <item name="android:minWidth">@dimen/icon_button_min_size</item>
-        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">@dimen/card_post_48</item>
+        <item name="android:minHeight">@dimen/card_post_48</item>
     </style>
 
-    <style name="Widget.AppTheme.Buttons" parent="Widget.AppCompat.Button.Borderless">
-        <item name="iconTint">@color/color_primary</item>
-        <item name="android:minWidth">@dimen/icon_button_min_size</item>
-        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    <style name="Widget.AppTheme.MembersButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/member_checkbox_tint</item>
+        <item name="icon">@drawable/member_selector</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">@dimen/card_post_48</item>
+        <item name="android:minHeight">@dimen/card_post_48</item>
     </style>
 
-    <style name="Widget.AppTheme.AddButtons" parent="Widget.AppCompat.Button.Borderless">
-        <item name="icon">@drawable/plus</item>
-        <item name="iconTint">@color/color_primary</item>
-        <item name="backgroundTint">@color/white</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textColor">@color/color_primary</item>
+    <style name="Widget.AppTheme.ShareButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/color_tint</item>
+        <item name="icon">@drawable/ic_share</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">@dimen/card_post_48</item>
+        <item name="android:minHeight">@dimen/card_post_48</item>
     </style>
 
-    <style name="Widget.AppTheme.SubmitButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">50dp</item>
-        <item name="android:height">70dp</item>
-        <item name="android:textSize">20sp</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_margin">20dp</item>
+    <style name="Widget.AppTheme.CoordsButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/color_tint</item>
+        <item name="icon">@drawable/ic_place</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">@dimen/card_post_48</item>
+        <item name="android:minHeight">@dimen/card_post_48</item>
     </style>
 
-    <style name="Widget.AppTheme.PlayPauseButton" parent="Widget.AppCompat.Button.Borderless">
-        <item name="iconTint">@color/color_primary</item>
-        <item name="icon">@drawable/selector_play_pause</item>
-        <item name="android:minWidth">@dimen/icon_button_min_size</item>
-        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    <style name="Widget.AppTheme.GroupButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/color_tint</item>
+        <item name="icon">@drawable/ic_group</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">@dimen/card_post_48</item>
+        <item name="android:minHeight">@dimen/card_post_48</item>
     </style>
-
 </resources>

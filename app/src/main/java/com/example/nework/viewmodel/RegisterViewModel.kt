@@ -1,73 +1,126 @@
 package com.example.nework.viewmodel
 
+
 import android.net.Uri
-import androidx.lifecycle.*
-import com.example.nework.auth.AppAuth
-import com.example.nework.enumeration.AttachmentType
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.nework.api.ApiService
+import com.example.nework.error.ApiError
 import com.example.nework.model.AuthModel
-import com.example.nework.model.AuthModelState
 import com.example.nework.model.MediaModel
-import com.example.nework.repository.auth.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val repository: AuthRepository,
-    private val appAuth: AppAuth
+    private val apiService: ApiService,
 ) : ViewModel() {
 
-    val data: LiveData<AuthModel> = appAuth
-        .authState
-        .asLiveData(Dispatchers.Default)
+    private val _stateSignUp = MutableLiveData<RegisterModelState>()
+    val stateSignUp: LiveData<RegisterModelState>
+        get() = _stateSignUp
 
-    private val _state = MutableLiveData<AuthModelState>()
-    val state: LiveData<AuthModelState>
-        get() = _state
+    private val _signUpApp = SingleLiveEvent<AuthModel>()
+    val signUpApp: LiveData<AuthModel>
+        get() = _signUpApp
 
-    private val _media = MutableLiveData<MediaModel?>(null)
-    val media: LiveData<MediaModel?>
-        get() = _media
+    private val _mediaAvatar = MutableLiveData<MediaModel?>(null)
+    val mediaAvatar: LiveData<MediaModel?>
+        get() = _mediaAvatar
 
-
-    fun register(login: String, pass: String, name: String) = viewModelScope.launch {
-        if (login.isNotBlank() && pass.isNotBlank() && name.isNotBlank()) {
-            val avatar = media.value
-            if (avatar != null) {
-                try {
-                    _state.value = AuthModelState(loading = true)
-                    val result = repository.registerWithPhoto(login, pass, name, avatar)
-                    appAuth.setAuth(result.id, result.token)
-                    _state.value = AuthModelState(loggedIn = true)
-                } catch (e: Exception) {
-                    _state.value = AuthModelState(error = true)
-                }
-
-            } else {
-                try {
-                    _state.value = AuthModelState(loading = true)
-                    val result = repository.register(login, pass, name)
-                    appAuth.setAuth(result.id, result.token)
-                    _state.value = AuthModelState(loggedIn = true)
-                } catch (e: Exception) {
-                    _state.value = AuthModelState(error = true)
-                }
+    fun signUp(
+        login: String,
+        password: String,
+        name: String,
+    ) = viewModelScope.launch {
+        try {
+            when (val media = mediaAvatar.value) {
+                null -> registration(login, password, name)
+                else -> registrationWithAvatar(login, password, name, media)
             }
-        } else {
-            _state.value = AuthModelState(isBlank = true)
+        } catch (e: Exception) {
+            _stateSignUp.value = RegisterModelState(signUpError = true)
         }
-        _state.value = AuthModelState()
-        clearPhoto()
     }
 
-    fun addPhoto(uri: Uri, file: File, type: AttachmentType) {
-        _media.value = MediaModel(uri, file, type)
+    fun changeAvatar(file: File, uri: Uri) {
+        _mediaAvatar.value = MediaModel(uri, file)
     }
 
-    fun clearPhoto() {
-        _media.value = null
+    fun clearAvatar() {
+        _mediaAvatar.value = null
+    }
+
+    private suspend fun registration(login: String, password: String, name: String) {
+        try {
+            val response = apiService.registerUser(login, password, name)
+
+            if (!response.isSuccessful) {
+                if (response.code() == 400) {
+                    _stateSignUp.value = RegisterModelState(signUpWrong = true)
+                }
+                _stateSignUp.value = RegisterModelState(signUpError = true)
+            }
+
+            val body = response.body() ?: throw ApiError(
+                response.code(),
+                response.message()
+            )
+            _signUpApp.postValue(body)
+            _stateSignUp.value = RegisterModelState()
+        } catch (e: IOException) {
+            _stateSignUp.value = RegisterModelState(signUpError = true)
+        } catch (e: Exception) {
+            _stateSignUp.value = RegisterModelState(signUpWrong = true)
+        }
+    }
+
+    private suspend fun registrationWithAvatar(
+        login: String,
+        password: String,
+        name: String,
+        media: MediaModel
+    ) {
+        try {
+            val part = MultipartBody.Part.createFormData(
+                "file", media.file.name, media.file.asRequestBody()
+            )
+
+            val response = apiService.registerWithPhoto(
+                login.toRequestBody("text/plain".toMediaType()),
+                password.toRequestBody("text/plain".toMediaType()),
+                name.toRequestBody("text/plain".toMediaType()),
+                part
+            )
+
+            if (!response.isSuccessful) {
+                if (response.code() == 400) {
+                    _stateSignUp.value = RegisterModelState(signUpWrong = true)
+                }
+                _stateSignUp.value = RegisterModelState(signUpError = true)
+            }
+
+            val body = response.body() ?: throw ApiError(
+                response.code(),
+                response.message()
+            )
+            _signUpApp.postValue(body)
+            _stateSignUp.value = RegisterModelState()
+            clearAvatar()
+
+        } catch (e: IOException) {
+            _stateSignUp.value = RegisterModelState(signUpError = true)
+        } catch (e: Exception) {
+            _stateSignUp.value = RegisterModelState(signUpWrong = true)
+        }
     }
 }

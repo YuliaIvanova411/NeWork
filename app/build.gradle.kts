@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.androidx.room.compiler.processing.testing)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.play.services.cast.framework)
+    implementation(libs.androidx.ui.test.android)
+    implementation(libs.androidx.navigation.ui.ktx)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation (libs.maps.mobile)
     implementation(libs.logging.interceptor)

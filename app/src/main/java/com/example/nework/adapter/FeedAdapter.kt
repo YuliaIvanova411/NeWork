@@ -13,7 +13,6 @@ import com.example.nework.R
 import com.example.nework.databinding.CardItemBinding
 import com.example.nework.dto.Event
 import com.example.nework.dto.FeedItem
-import com.example.nework.utils.AndroidUtils
 import com.example.nework.view.load
 import com.example.nework.enumeration.AttachmentType
 import com.example.nework.enumeration.EventType

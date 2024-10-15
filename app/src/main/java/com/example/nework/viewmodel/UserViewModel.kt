@@ -4,33 +4,72 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.nework.auth.AppAuth
 import com.example.nework.dto.User
-import com.example.nework.model.FeedModelState
-import com.example.nework.repository.user.UserRepository
+import com.example.nework.repository.user.UserRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userRepository: UserRepository
-): ViewModel() {
+    private val repository: UserRepositoryImpl,
+    private val appAuth: AppAuth
+) : ViewModel() {
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
+    private val _stateUser = MutableLiveData<UsersModelState>()
+    val stateUser: LiveData<UsersModelState>
+        get() = _stateUser
 
-    private val _userDataState = MutableLiveData<FeedModelState>()
-    val userDataState: LiveData<FeedModelState>
-        get() = _userDataState
+    val userSignIn = MutableLiveData<User>()
 
-    fun getUserById(id: Int) = viewModelScope.launch {
+    val user = MutableLiveData<User>()
+
+    val data: Flow<List<User>> = repository.data
+        .flowOn(Dispatchers.Default)
+
+    init {
+        loadUsers()
+    }
+
+    fun loadUsers() = viewModelScope.launch {
+        _stateUser.value = UsersModelState(loading = true)
         try {
-            _user.value = userRepository.getUserById(id)
-            _userDataState.value = FeedModelState()
+            repository.getAllUsers()
+            _stateUser.value = UsersModelState()
         } catch (e: Exception) {
-            _userDataState.value = FeedModelState(error = true)
+            _stateUser.value = UsersModelState(error = true)
         }
     }
 
+    fun getUserSignIn() = viewModelScope.launch {
+        _stateUser.value = UsersModelState(loading = true)
+        try {
+            userSignIn.value = repository.getUserById(appAuth.getId())
+            _stateUser.value = UsersModelState()
+        } catch (e: Exception) {
+            _stateUser.value = UsersModelState(error = true)
+        }
+    }
+
+    fun getUserById(id: Int) = viewModelScope.launch {
+        _stateUser.value = UsersModelState(loading = true)
+        try {
+            user.value = repository.getUserById(id)
+            _stateUser.value = UsersModelState()
+        } catch (e: Exception) {
+            _stateUser.value = UsersModelState(error = true)
+        }
+    }
+
+    fun addSpeaker(id: Int) = viewModelScope.launch {
+        repository.speakerById(id)
+    }
+
+    fun removeSpeaker(id: Int) = viewModelScope.launch {
+        repository.unSpeakerById(id)
+    }
 }

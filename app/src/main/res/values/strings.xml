@@ -1,73 +1,123 @@
 <resources>
     <string name="app_name">NeWork</string>
-    <string name="description_post_author_avatar">Post author avatar</string>
-    <string name="description_post_menu">Post menu</string>
-    <string name="date_of_event">Date of event</string>
-    <string name="type_of_event">Type of event</string>
-    <string name="attachment">Attachment</string>
-    <string name="description_like_button">Like</string>
-    <string name="location">Location</string>
-    <string name="edit">Edit</string>
-    <string name="dash">–</string>
-    <string name="button_back">Button back</string>
-    <string name="description_full_screen_image">Full screen image</string>
-    <string name="jobs">Jobs</string>
-    <string name="add_job">Add job</string>
-    <string name="empty_jobs">No jobs added</string>
-    <string name="close_button">Close button</string>
-    <string name="sign_in">Sign in</string>
-    <string name="login">Login</string>
-    <string name="password">Password</string>
-    <string name="blankAuth">Login or password is blank</string>
-    <string name="invalid_auth">Invalid login/password</string>
-    <string name="error_loading">Something went wrong. Try again later</string>
-    <string name="zoom_in">Zoom in</string>
-    <string name="zoom_out">Zoom out</string>
-    <string name="user_location">User location</string>
-    <string name="latitude_and_longitude">latitude: %s\nlongitude: %s</string>
-    <string name="permission_request">Location permission required</string>
-    <string name="coordinates">Coordinates</string>
-    <string name="place_pin">Place pin</string>
-    <string name="job">Job</string>
-    <string name="start">Start</string>
-    <string name="finish">Finish</string>
-    <string name="create_post">Create</string>
-    <string name="position">Position</string>
-    <string name="avatar">Avatar</string>
-    <string name="name">Name</string>
-    <string name="greeting">Greeting</string>
-    <string name="join">Join</string>
-    <string name="authorization">Authorization</string>
-    <string name="users">Users</string>
-    <string name="add_new_post">Add new post</string>
-    <string name="posts">Posts</string>
-    <string name="events">Events</string>
-    <string name="sign_up">Sign up</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirm_signOut">Confirm sign out</string>
-    <string name="sign_out">Sign out</string>
-    <string name="add_post">Add post</string>
-    <string name="add_event">Add event</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_profile">Profile</string>
+
+    //navigation
+    <string name="menu_feed">Feed</string>
+    <string name="menu_events">Events</string>
+    <string name="menu_my_wall">My wall</string>
+    <string name="menu_new_post">New post</string>
+    <string name="menu_new_event">New event</string>
+    <string name="menu_new_job">New job</string>
+
+    //menu
     <string name="menu_edit">Edit</string>
-    <string name="menu_delete">Delete</string>
-    <string name="empty_posts">There are no posts.\\nIf you create a new post, it will appear here</string>
-    <string name="invalid_link">Invalid link</string>
-    <string name="online">Online</string>
-    <string name="offline">Offline</string>
-    <string name="add_date">Add date</string>
+    <string name="menu_remove">Remove</string>
+    <string name="add">Add</string>
+
+    //card post
+    <string name="post_avatar">Avatar</string>
+    <string name="post_menu">Menu</string>
+    <string name="post_like">Like</string>
+    <string name="post_share">Share</string>
+    <string name="post_coords">Coordinates</string>
+
+    //event post
+    <string name="member">Member</string>
+    <string name="speakers">Speakers</string>
+    <string name="empty_speakers">There are no speakers in the meeting</string>
+
+    //new event new post
+    <string name="enter_text">Enter text</string>
     <string name="add_time">Add time</string>
-    <string name="link">Link</string>
-    <string name="add_image">Add image</string>
-    <string name="clear_image">Clear image</string>
     <string name="add_place">Add place</string>
-    <string name="clear_coordinates">Clear coordinates</string>
-    <string name="empty_datetime">Date and time can`t be empty</string>
-    <string name="blankRegister">Name, login or password is blank</string>
-    <string name="description_preview">Image preview</string>
-    <string name="clear_avatar">Clear avatar</string>
+    <string name="add_content">Add content</string>
+    <string name="event_type">Add event type</string>
+    <string name="add_link">Add link</string>
+    <string name="add_user">Add user</string>
+    <string name="icon">Icon</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="user">Users</string>
+    <string name="content_added">Content added</string>
+    <string name="user_added">User added:</string>
+    <string name="content_post_is_empty">Add a post description</string>
+    <string name="content_event_is_empty">Add a event description</string>
+    <string name="map">Map</string>
+
+    //adapter
+    <string name="unknown_item_type">Unknown item type</string>
+    <string name="unknown_view_type">Unknown view type</string>
+
+    //Feed
+    <string name="error_loading">Something went wrong. Try again later</string>
+    <string name="retry_loading">Retry</string>
+    <string name="user_registered">User already registered</string>
+    <string name="on_picture">Image</string>
+
+    //User
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="description_choose_gallery">Choose image from the gallery</string>
-    <string name="description_make_photo">Make a photo</string>
-    <string name="match_passwords">Passwords must match</string>
-    <dimen name="new_post_editText_height">200dp</dimen>
+    <string name="registration">Registration</string>
+    <string name="create_new_acc">Create new account</string>
+    <string name="enter">Enter</string>
+    <string name="sign_in_wrong">Wrong login or password</string>
+    <string name="sign_in_error">Something went wrong. Try again later</string>
+    <string name="login_success">You are logged in</string>
+    <string name="login_exit">You are logged out</string>
+    <string name="sign_in">Profile login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_up_name">Name</string>
+    <string name="sign_up_login">Login</string>
+    <string name="sign_up_avatar">Avatar</string>
+    <string name="sign_up_but_clear">Clear</string>
+    <string name="reg_ok">Profile created successfully!</string>
+    <string name="required_field">Required field!</string>
+    <string name="passwords_dont_match">Passwords don\'t match</string>
+    <string name="photo_error">Error</string>
+
+    //My wall
+    <string name="login_title">You must be logged in to view the list of posts</string>
+    <string name="login_button">Profile login</string>
+    <string name="empty_posts">There are no posts.\nIf you create a new post, it will appear here</string>
+
+    //dialog
+    <string name="log_account">Log into your account</string>
+    <string name="enter_in_app">Log into your account to use the application</string>
+    <string name="guest">Later</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="login_exit_qu">Do you want to log out of your profile?</string>
+    <string name="text_confirm_save">Thank you!\nYour data has been saved!</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="save_coords">Do you want to select these coordinates?</string>
+    <string name="changes_lost">All changes will be lost.\nDo you want to continue?</string>
+
+    //map
+    <string name="my_location">My location</string>
+    <string name="permission">Permission</string>
+    <string name="error_location">Location can\'t be find</string>
+
+    //profile
+    <string name="profile">Profile</string>
+    <string name="post_job">Post/Job</string>
+
+    //job
+    <string name="company_name">Company name</string>
+    <string name="position">Position</string>
+    <string name="start">Date start</string>
+    <string name="finish">Date finish</string>
+    <string name="until_now">Until now</string>
+    <string name="empty_jobs">No job listed</string>
+    <string name="company_name_error">Company name isn\'t blank</string>
+    <string name="position_error">Position isn\'t blank</string>
+    <string name="date_start_error">Date start isn\'t blank</string>
+
 </resources>

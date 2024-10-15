@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nework.R
 import com.example.nework.databinding.CardJobBinding
 import com.example.nework.dto.Job
-import com.example.nework.utils.AndroidUtils
 
 
 interface Listener {

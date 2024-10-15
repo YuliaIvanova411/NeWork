@@ -1,75 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/card_post_8">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/close_button"
-            android:padding="@dimen/common_spacing"
-            android:src="@drawable/back" />
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/job_name"
+        <EditText
+            android:id="@+id/company_name"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_text_height"
-            android:layout_margin="@dimen/common_spacing"
-            android:background="@drawable/card_line"
-            android:hint="@string/job"
-            android:paddingHorizontal="@dimen/common_spacing" />
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="start|top"
+            android:hint="@string/company_name"
+            android:inputType="textShortMessage"
+            android:padding="@dimen/card_post_16" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/job_position"
+        <EditText
+            android:id="@+id/position"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_text_height"
-            android:layout_margin="@dimen/common_spacing"
-            android:background="@drawable/card_line"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="start|top"
             android:hint="@string/position"
-            android:paddingHorizontal="@dimen/common_spacing" />
+            android:inputType="textShortMessage"
+            android:padding="@dimen/card_post_16" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/editLink"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="start|top"
+            android:hint="@string/add_link"
+            android:inputType="textUri"
+            android:padding="@dimen/card_post_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="@dimen/card_post_8">
+
+            <ImageView
+                android:id="@+id/iconStartTime"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
+                android:contentDescription="@string/icon"
+                android:src="@drawable/ic_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/job_start"
+                android:id="@+id/addStartTimeBut"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_margin="@dimen/common_spacing"
-                android:layout_weight="1"
-                android:background="@drawable/card_line"
-                android:hint="@string/start"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/common_spacing" />
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_post_8"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/start"
+                android:textColor="@color/black"
+                android:textSize="@dimen/card_post_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iconStartTime"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage" />
 
-            <TextView
-                android:id="@+id/job_finish"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_margin="@dimen/common_spacing"
-                android:layout_weight="1"
-                android:background="@drawable/card_line"
-                android:gravity="center_vertical"
-                android:hint="@string/finish"
-                android:paddingHorizontal="@dimen/common_spacing" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/create_button"
-            style="@style/Widget.AppTheme.SubmitButton"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/create_post" />
+            android:layout_margin="@dimen/card_post_8">
 
+            <ImageView
+                android:id="@+id/iconFinishTime"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
+                android:contentDescription="@string/icon"
+                android:src="@drawable/ic_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/addFinishTimeBut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_post_8"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/finish"
+                android:textColor="@color/black"
+                android:textSize="@dimen/card_post_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iconFinishTime"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteDataFinish"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
+                android:contentDescription="@string/icon"
+                android:visibility="invisible"
+                app:icon="@drawable/ic_delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
     </LinearLayout>
-</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
