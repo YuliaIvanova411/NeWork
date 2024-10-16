@@ -1,5 +1,6 @@
 package com.example.nework.api
 
+import com.example.nework.auth.AppAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,54 +10,55 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import com.example.nework.auth.AppAuth
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 class ApiModule {
+
     companion object {
-        private const val BASE_URL = "${BuildConfig.BASE_URL}/api/"
+        private const val BASEURL = "${BuildConfig.BASE_URL}/api/"
     }
 
     @Provides
     @Singleton
-    fun provideLogging() : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    fun provideLogging(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.DEBUG) {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
     @Provides
     @Singleton
     fun provideOkHttp(
-        loggingInterceptor: HttpLoggingInterceptor,
-        appAuth: AppAuth
+        logging: HttpLoggingInterceptor,
+        appAuth: AppAuth,
     ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
+        .addInterceptor(logging)
         .addInterceptor { chain ->
-            val request = appAuth.authState.value.token?.let {
-                chain.request().newBuilder()
-                    .addHeader("Authorization", it)
+            appAuth.data.value?.token?.let { token ->
+                val newRequest = chain.request().newBuilder()
+                    .addHeader("Authorization", token)
                     .build()
+                return@addInterceptor chain.proceed(newRequest)
             } ?: chain.request()
-            chain.proceed(request)
+            chain.proceed(chain.request())
         }
         .build()
 
     @Provides
     @Singleton
     fun provideRetrofit(
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
     ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .baseUrl(BASEURL)
         .build()
-
 
     @Provides
     @Singleton
     fun provideApiService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): ApiService = retrofit.create()
 }

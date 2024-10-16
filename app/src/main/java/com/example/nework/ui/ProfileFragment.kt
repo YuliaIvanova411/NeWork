@@ -1,4 +1,4 @@
-package ru.netology.nework.ui
+package com.example.nework.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,17 +10,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.nework.R
-import com.example.nework.adapter.JobAdapter
 import com.example.nework.auth.AppAuth
 import com.example.nework.databinding.FragmentProfileBinding
-import com.example.nework.dto.Job
 import com.example.nework.viewmodel.JobViewModel
 import com.example.nework.viewmodel.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import ru.netology.nework.util.loadCircleCrop
+import com.example.nework.adapter.JobAdapter
+import com.example.nework.adapter.OnInteractionListenerJob
+import com.example.nework.dto.Job
+import com.example.nework.utils.loadCircleCrop
 import javax.inject.Inject
 
 @AndroidEntryPoint

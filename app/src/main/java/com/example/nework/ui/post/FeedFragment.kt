@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.post
+package com.example.nework.ui.post
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,16 +11,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.nework.R
-import com.example.nework.adapter.OnInteractionListener
 import com.example.nework.auth.AppAuth
 import com.example.nework.databinding.FragmentFeedBinding
-import com.example.nework.dto.Post
 import com.example.nework.viewmodel.PostViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import ru.netology.nework.ui.post.NewPostFragment.Companion.textArg
+import com.example.nework.adapter.OnInteractionListener
+import com.example.nework.adapter.PostAdapter
+import com.example.nework.dto.Post
+import com.example.nework.ui.dialog.AuthDialog
+import com.example.nework.ui.post.NewPostFragment.Companion.textArg
 import javax.inject.Inject
 
 @AndroidEntryPoint

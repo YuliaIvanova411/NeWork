@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.events
+package com.example.nework.ui.events
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -23,15 +23,18 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.nework.R
 import com.example.nework.databinding.FragmentNewEventBinding
-import com.example.nework.enumeration.EventType
 import com.example.nework.viewmodel.EventViewModel
 import com.example.nework.viewmodel.UserViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import ru.netology.nework.ui.post.NewPostFragment.Companion.textArg
-import ru.netology.nework.util.AndroidUtils
+import com.example.nework.dto.EventType
+import com.example.nework.ui.auth.RegisterFragment
+import com.example.nework.ui.dialog.BottomSheetImage
+import com.example.nework.ui.dialog.ExitPostEventDialog
+import com.example.nework.ui.post.NewPostFragment.Companion.textArg
+import com.example.nework.utils.AndroidUtils
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.OffsetDateTime

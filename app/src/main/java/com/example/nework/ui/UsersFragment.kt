@@ -1,4 +1,4 @@
-package ru.netology.nework.ui
+package com.example.nework.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.nework.databinding.FragmentUsersBinding
-import com.example.nework.dto.User
 import com.example.nework.viewmodel.EventViewModel
 import com.example.nework.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import com.example.nework.adapter.OnInteractionListenerUser
+import com.example.nework.adapter.UserAdapter
+import com.example.nework.dto.User
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi

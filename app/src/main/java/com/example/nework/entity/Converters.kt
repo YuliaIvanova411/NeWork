@@ -1,37 +1,19 @@
 package com.example.nework.entity
 
 import androidx.room.TypeConverter
-import com.example.nework.dto.Coordinates
-import com.example.nework.dto.UserPreview
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ListIntConverter {
+class Converter {
     @TypeConverter
-    fun toJson(list: List<Int>) = Gson().toJson(list)
-
-    @TypeConverter
-    fun fromJson(json: String): List<Int> {
-        return Gson().fromJson(json, object : TypeToken<List<Int>>() {}.type)
+    fun fromList(ids: List<Int>): String {
+        return Gson().toJson(ids)
     }
-}
-
-class MapUsersPrevConverter {
-    @TypeConverter
-    fun toJson(map: Map<Int, UserPreview>) = Gson().toJson(map)
 
     @TypeConverter
-    fun fromJson(json: String): Map<Int, UserPreview> {
-        return Gson().fromJson(json, object : TypeToken<Map<Int, UserPreview>>() {}.type)
-    }
-}
-
-class CoordinatesConverter {
-    @TypeConverter
-    fun toJson(coordinates: Coordinates?) = Gson().toJson(coordinates)
-
-    @TypeConverter
-    fun fromJson(json: String): Coordinates? {
-        return Gson().fromJson(json, object : TypeToken<Coordinates>() {}.type)
+    fun toList(data: String): List<Int> {
+        val listType = object : TypeToken<List<Int>>() {
+        }.type
+        return Gson().fromJson(data, listType)
     }
 }

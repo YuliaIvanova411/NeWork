@@ -1,4 +1,4 @@
-package ru.netology.nework.ui
+package com.example.nework.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -28,6 +28,7 @@ import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.ui_view.ViewProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.example.nework.ui.dialog.SaveCoordsDialog
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi

@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.auth
+package com.example.nework.ui.auth
 
 import android.os.Bundle
 import android.text.Editable
@@ -16,7 +16,7 @@ import com.example.nework.databinding.FragmentSignInBinding
 import com.example.nework.viewmodel.SignInViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import ru.netology.nework.util.AndroidUtils
+import com.example.nework.utils.AndroidUtils
 
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package ru.netology.nework.util
+package com.example.nework.utils
 
 import android.content.Context
 import android.view.View

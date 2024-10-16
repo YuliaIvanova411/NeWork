@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.dialog
+package com.example.nework.ui.dialog
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog

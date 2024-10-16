@@ -1,8 +1,11 @@
 package com.example.nework.adapter
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,54 +13,72 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nework.R
 import com.example.nework.databinding.CardJobBinding
 import com.example.nework.dto.Job
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 
-interface Listener {
-    fun onEdit(job: Job)
-    fun onRemove(job: Job)
+interface OnInteractionListenerJob {
+    fun onEdit(job: Job) {}
+    fun onRemove(job: Job) {}
 }
 
 class JobAdapter(
-    private val listener: Listener
+    private val onInteractionListenerJob: OnInteractionListenerJob
 ) : ListAdapter<Job, JobViewHolder>(JobDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = CardJobBinding.inflate(inflater, parent, false)
-        return JobViewHolder(binding, listener)
+        val binding =
+            CardJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return JobViewHolder(binding, onInteractionListenerJob)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        val place = getItem(position)
+        holder.bind(place)
     }
-
 }
 
 class JobViewHolder(
     private val binding: CardJobBinding,
-    private val listener: Listener
-) : RecyclerView.ViewHolder(binding.root) {
-
+    private val onInteractionListenerJob: OnInteractionListenerJob,
+) :
+    RecyclerView.ViewHolder(binding.root) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SetTextI18n")
     fun bind(job: Job) {
-        with(binding) {
-            jobName.text = job.name
-            jobPosition.text = job.position
-            jobStart.text = AndroidUtils.formatDate(job.start)
-            jobFinish.text = job.finish?.let { AndroidUtils.formatDate(it) } ?: ""
+        binding.apply {
+
+            val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+            val dateStart = OffsetDateTime.parse(job.start).toLocalDateTime().format(formatter)
+
+            position.text = job.position
+            nameCompany.text = job.name
+            dateWork.text =
+                if (job.finish != null) ("$dateStart - ${
+                    OffsetDateTime.parse(job.finish).toLocalDateTime().format(formatter)
+                }") else ("$dateStart - " + root.context.getString(
+                    R.string.until_now
+                ))
+            link.isVisible = job.link != null
+            link.text = job.link
             menu.isVisible = job.ownedByMe
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
-                    inflate(R.menu.options_post)
+                    inflate(R.menu.options_menu)
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
-                            R.id.delete -> {
-                                listener.onRemove(job)
+                            R.id.remove -> {
+                                onInteractionListenerJob.onRemove(job)
                                 true
                             }
+
                             R.id.edit -> {
-                                listener.onEdit(job)
+                                onInteractionListenerJob.onEdit(job)
                                 true
                             }
+
                             else -> false
                         }
                     }

@@ -1,50 +1,169 @@
 package com.example.nework.api
 
-import com.example.nework.dto.Event
-import com.example.nework.dto.Media
-import com.example.nework.dto.Post
-import com.example.nework.model.AuthModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
-import retrofit2.http.Path
-import retrofit2.http.Query
-import com.example.nework.dto.*
+import retrofit2.http.*
+import com.example.nework.dto.Event
 import com.example.nework.dto.Job
+import com.example.nework.dto.Media
+import com.example.nework.dto.Post
+import com.example.nework.dto.User
+import com.example.nework.model.AuthModel
 
 interface ApiService {
 
-    // Auth
+    //post
+    @GET("posts")
+    suspend fun getAll(): Response<List<Post>>
 
-    @POST("users/push-tokens")
-    suspend fun saveToken(@Body pushToken: PushToken)
+    @GET("posts/latest")
+    suspend fun getLatest(@Query("count") count: Int): Response<List<Post>>
+
+    @GET("posts/{post_id}/before")
+    suspend fun getBefore(
+        @Path("post_id") id: Int,
+        @Query("count") count: Int,
+    ): Response<List<Post>>
+
+    @GET("posts/{post_id}/after")
+    suspend fun getAfter(
+        @Path("post_id") id: Int,
+        @Query("count") count: Int,
+    ): Response<List<Post>>
+
+
+    @POST("posts")
+    suspend fun savePost(@Header("auth") auth: String, @Body post: Post): Response<Post>
+
+    @POST("posts/{post_id}/likes ")
+    suspend fun likePostById(@Header("auth") auth: String, @Path("post_id") id: Int): Response<Post>
+
+    @DELETE("posts/{post_id}/likes ")
+    suspend fun unlikePostById(
+        @Header("auth") auth: String,
+        @Path("post_id") id: Int,
+    ): Response<Post>
+
+    @DELETE("posts/{post_id}")
+    suspend fun removePostById(
+        @Header("auth") auth: String,
+        @Path("post_id") id: Int,
+    ): Response<Unit>
+
+    //events
+    @GET("events")
+    suspend fun getAllEvent(): Response<List<Event>>
+
+    @GET("events/latest")
+    suspend fun getLatestEvent(@Query("count") count: Int): Response<List<Event>>
+
+    @GET("events/{event_id}/before")
+    suspend fun getBeforeEvent(
+        @Path("event_id") id: Int,
+        @Query("count") count: Int,
+    ): Response<List<Event>>
+
+    @GET("events/{event_id}/after")
+    suspend fun getAfterEvent(
+        @Path("event_id") id: Int,
+        @Query("count") count: Int,
+    ): Response<List<Event>>
+
+    @POST("events")
+    suspend fun saveEvent(@Header("auth") auth: String, @Body event: Event): Response<Event>
+
+    @POST("events/{event_id}/likes")
+    suspend fun likeEventById(
+        @Header("auth") auth: String,
+        @Path("event_id") id: Int,
+    ): Response<Event>
+
+    @DELETE("events/{event_id}/likes")
+    suspend fun unlikeEventById(
+        @Header("auth") auth: String,
+        @Path("event_id") id: Int,
+    ): Response<Event>
+
+    @POST("events/{event_id}/participants")
+    suspend fun participantById(
+        @Header("auth") auth: String,
+        @Path("event_id") id: Int
+    ): Response<Event>
+
+    @DELETE("events/{event_id}/participants")
+    suspend fun unParticipantById(
+        @Header("auth") auth: String,
+        @Path("event_id") id: Int
+    ): Response<Event>
+
+    @DELETE("events/{event_id}")
+    suspend fun removeEventById(
+        @Header("auth") auth: String,
+        @Path("event_id") id: Int,
+    ): Response<Unit>
+
+    //wall
+    @GET("{author_id}/wall")
+    suspend fun getUserWall(@Path("author_id") userId: Int): Response<List<Post>>
+
+    @GET("{author_id}/wall/latest")
+    suspend fun getUserWallLatest(
+        @Path("author_id") userId: Int,
+        @Query("count") count: Int,
+    ): Response<List<Post>>
+
+    @GET("{author_id}/wall/{post_id}/after")
+    suspend fun getUserWallAfter(
+        @Path("author_id") userId: Int,
+        @Path("post_id") postId: Int,
+        @Query("count") count: Int,
+    ): Response<List<Post>>
+
+    @GET("{author_id}/wall/{post_id}/before")
+    suspend fun getUserWallBefore(
+        @Path("author_id") userId: Int,
+        @Path("post_id") postId: Int,
+        @Query("count") count: Int,
+    ): Response<List<Post>>
+
+    //job
+    @GET("my/jobs/")
+    suspend fun getMyJobs(@Header("auth") auth: String): Response<List<Job>>
+
+    @GET("{user_id}/jobs/")
+    suspend fun getJobsById(@Path("user_id") id: Int): Response<List<Job>>
+
+    @POST("my/jobs/")
+    suspend fun saveJob(@Header("auth") auth: String, @Body job: Job): Response<Job>
+
+    @DELETE("my/jobs/{job_id}/")
+    suspend fun removeJob(@Header("auth") auth: String, @Path("job_id") id: Int): Response<Unit>
+
+    //user
+    @GET("users")
+    suspend fun getAllUsers(): Response<List<User>>
+
+    @GET("users/{user_id}/")
+    suspend fun getUserById(@Path("user_id") id: Int): Response<User>
 
     @FormUrlEncoded
-    @POST("users/authentication")
-    suspend fun login(
+    @POST("users/authentication/")
+    suspend fun updateUser(
         @Field("login") login: String,
         @Field("password") password: String
     ): Response<AuthModel>
 
     @FormUrlEncoded
-    @POST("users/registration")
-    suspend fun register(
+    @POST("users/registration/")
+    suspend fun registerUser(
         @Field("login") login: String,
         @Field("password") password: String,
-        @Field("name") name: String
+        @Field("name") name: String,
     ): Response<AuthModel>
 
-
     @Multipart
-    @POST("users/registration")
+    @POST("users/registration/")
     suspend fun registerWithPhoto(
         @Part("login") login: RequestBody,
         @Part("password") password: RequestBody,
@@ -52,107 +171,11 @@ interface ApiService {
         @Part media: MultipartBody.Part,
     ): Response<AuthModel>
 
-
-    // Posts
-
-    @GET("posts/latest")
-    suspend fun getLatestPosts(@Query("count") count: Int): Response<List<Post>>
-
-    @GET("posts/{id}/before")
-    suspend fun getPostsBefore(
-        @Path("id") id: Int,
-        @Query("count") count: Int
-    ): Response<List<Post>>
-
-    @GET("posts/{id}/after")
-    suspend fun getPostsAfter(
-        @Path("id") id: Int,
-        @Query("count") count: Int
-    ): Response<List<Post>>
-
-    @POST("posts")
-    suspend fun createPost(@Body post: Post): Response<Post>
-
-    @DELETE("posts/{id}")
-    suspend fun deletePost(@Path("id") postId: Int): Response<Unit>
-
-    @POST("posts/{id}/likes")
-    suspend fun likePostById(@Path("id") postId: Int): Response<Post>
-
-    @DELETE("posts/{id}/likes")
-    suspend fun dislikePostById(@Path("id") postId: Int): Response<Post>
-
-
-    // Events
-
-    @GET("events/latest")
-    suspend fun getLatestEvents(@Query("count") count: Int): Response<List<Event>>
-
-    @GET("events/{id}/before")
-    suspend fun getEventsBefore(
-        @Path("id") id: Int,
-        @Query("count") count: Int
-    ): Response<List<Event>>
-
-    @GET("events/{id}/after")
-    suspend fun getEventsAfter(
-        @Path("id") id: Int,
-        @Query("count") count: Int
-    ): Response<List<Event>>
-
-    @POST("events")
-    suspend fun createEvent(@Body event: Event): Response<Event>
-
-    @DELETE("events/{id}")
-    suspend fun deleteEvent(@Path("id") id: Int): Response<Unit>
-
-    @POST("events/{id}/likes")
-    suspend fun likeEventById(@Path("id") eventId: Int): Response<Event>
-
-    @DELETE("events/{id}/likes")
-    suspend fun dislikeEventById(@Path("id") eventId: Int): Response<Event>
-
-
-    // Media
-
+    //media
     @Multipart
     @POST("media")
-    suspend fun uploadMedia(@Part file: MultipartBody.Part): Response<Media>
-
-
-    //User .
-
-    @GET("users/{id}")
-    suspend fun getUserById(@Path("id") id: Int): Response<User>
-
-
-    //Jobs
-
-    @GET("{id}/jobs")
-    suspend fun getJobsByUserId(@Path("id") id: Int): Response<List<Job>>
-
-    @POST("my/jobs")
-    suspend fun saveJob(@Body job: Job): Response<Job>
-
-    @DELETE("my/jobs/{id}")
-    suspend fun removeJobById(@Path("id") id: Int): Response<Unit>
-
-
-    //Wall
-
-    @GET("{authorId}/wall/latest")
-    suspend fun wallGetLatest(
-        @Path("authorId") authorId: Int,
-        @Query("count") count: Int
-    ): Response<List<Post>>
-
-    @GET("{authorId}/wall/{postId}/before")
-    suspend fun wallGetBefore(
-        @Path("authorId") authorId: Int,
-        @Path("postId") postId: Int,
-        @Query("count") count: Int
-    ): Response<List<Post>>
-
+    suspend fun uploadMedia(
+        @Header("auth") auth: String,
+        @Part file: MultipartBody.Part
+    ): Response<Media>
 }
-
-

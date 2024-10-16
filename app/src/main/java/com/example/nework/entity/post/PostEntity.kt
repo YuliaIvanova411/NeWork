@@ -3,73 +3,73 @@ package com.example.nework.entity.post
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.nework.dto.Attachment
-import com.example.nework.dto.Coordinates
+import com.example.nework.entity.AttachmentEmbedded
+import com.example.nework.dto.Coords
 import com.example.nework.dto.Post
-import com.example.nework.dto.UserPreview
+
 
 @Entity
 data class PostEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Int,
     val authorId: Int,
     val author: String,
-    val authorAvatar: String? = null,
+    val authorAvatar: String?,
     val authorJob: String?,
     val content: String,
     val published: String,
-    val coords: Coordinates?,
-    val link: String? = null,
-    val likeOwnerIds: List<Int> = emptyList(),
-    val mentionIds: List<Int> = emptyList(),
-    val mentionedMe: Boolean,
-    val likedByMe: Boolean,
-
-
+    val latitude: Double?,
+    val longitude: Double?,
+    val link: String?,
+    val likeOwnerIds: List<Int>,
+    val mentionIds: List<Int>,
+    val mentionedMe: Boolean = false,
+    val likedByMe: Boolean = false,
     @Embedded
-    val attachment: Attachment? = null,
-    val ownedByMe: Boolean,
-    val users: Map<Int, UserPreview> = emptyMap(),
+    val attachment: AttachmentEmbedded?,
+    val ownedByMe: Boolean = false,
 ) {
-    fun toDto() = Post(
-        id = id,
-        authorId = authorId,
-        author = author,
-        authorAvatar = authorAvatar,
-        authorJob = authorJob,
-        content = content,
-        published = published,
-        coords = coords,
-        link = link,
-        likeOwnerIds = likeOwnerIds,
-        mentionIds = mentionIds,
-        mentionedMe = mentionedMe,
-        likedByMe = likedByMe,
-        attachment = attachment,
-        ownedByMe = ownedByMe,
-        users = users
-    )
+    fun toDto() =
+        Post(
+            id,
+            authorId,
+            author,
+            authorAvatar,
+            authorJob,
+            content,
+            published,
+            latitude?.let { longitude?.let { it1 -> Coords(it, it1) } },
+            link,
+            likeOwnerIds,
+            mentionIds,
+            mentionedMe,
+            likedByMe,
+            attachment?.toDto(),
+            ownedByMe,
+        )
 
     companion object {
-        fun fromDto(post: Post) = PostEntity(
-            id = post.id,
-            authorId = post.authorId,
-            author = post.author,
-            authorAvatar = post.authorAvatar,
-            authorJob = post.authorJob,
-            content = post.content,
-            published = post.published,
-            coords = post.coords,
-            link = post.link,
-            likeOwnerIds = post.likeOwnerIds,
-            mentionIds = post.mentionIds,
-            mentionedMe = post.mentionedMe,
-            likedByMe = post.likedByMe,
-            attachment = post.attachment,
-            ownedByMe = post.ownedByMe,
-            users = post.users,
-        )
+        fun fromDto(dto: Post) =
+            PostEntity(
+                dto.id,
+                dto.authorId,
+                dto.author,
+                dto.authorAvatar,
+                dto.authorJob,
+                dto.content,
+                dto.published,
+                dto.coords?.lat,
+                dto.coords?.long,
+                dto.link,
+                dto.likeOwnerIds,
+                dto.mentionIds,
+                dto.mentionedMe,
+                dto.likedByMe,
+                AttachmentEmbedded.fromDto(dto.attachment),
+                dto.ownedByMe,
+            )
     }
 }
 
+fun List<PostEntity>.toDto(): List<Post> = map(PostEntity::toDto)
 fun List<Post>.toEntity(): List<PostEntity> = map(PostEntity.Companion::fromDto)

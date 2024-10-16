@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.nework.auth.AppAuth
-import com.example.nework.model.AuthModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import com.example.nework.model.AuthModel
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.dialog
+package com.example.nework.ui.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog

@@ -1,18 +1,21 @@
 package com.example.nework.repository.post
 
 import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import com.example.nework.dto.AttachmentType
 import com.example.nework.dto.FeedItem
 import com.example.nework.dto.Post
 import com.example.nework.model.MediaModel
-import kotlinx.coroutines.flow.Flow
 
-interface PostRepository  {
+
+interface PostRepository {
     val data: Flow<PagingData<FeedItem>>
-    fun userWall(id: Int): Flow<PagingData<FeedItem>>
-    suspend fun likeById(post: Post)
-    suspend fun save(post: Post)
-    suspend fun saveWithAttachment(post: Post, media: MediaModel)
-    suspend fun removeById(id: Int)
-    suspend fun getById(id: Int): Post?
-    suspend fun wallRemoveById(id: Int)
+    suspend fun dataUserWall(userId: Int): Flow<PagingData<FeedItem>>
+    suspend fun get()
+    suspend fun getWall(userId: Int)
+    suspend fun likeById(authToken: String, id: Int, userId: Int)
+    suspend fun unlikeById(authToken: String, id: Int, userId: Int)
+    suspend fun removeById(authToken: String, id: Int)
+    suspend fun save(authToken: String, post: Post)
+    suspend fun saveWithAttachment(authToken: String, post: Post, mediaModel: MediaModel, attachmentType: AttachmentType)
 }

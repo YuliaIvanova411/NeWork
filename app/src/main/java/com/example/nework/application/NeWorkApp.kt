@@ -6,11 +6,9 @@ import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class CommunityApp: Application() {
-    private val mapkitApiKey = BuildConfig.API_KEY
-
+class NeWorkApp: Application () {
     override fun onCreate() {
+        MapKitFactory.setApiKey(BuildConfig.MAPS_API_KEY)
         super.onCreate()
-        MapKitFactory.setApiKey(mapkitApiKey)
     }
 }

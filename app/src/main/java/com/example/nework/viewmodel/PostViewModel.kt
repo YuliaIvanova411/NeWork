@@ -9,17 +9,20 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.nework.auth.AppAuth
-import com.example.nework.dto.FeedItem
-import com.example.nework.dto.Post
-import com.example.nework.model.FeedModelState
-import com.example.nework.model.MediaModel
-import com.example.nework.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import com.example.nework.dto.AttachmentType
+import com.example.nework.dto.Coords
+import com.example.nework.dto.FeedItem
+import com.example.nework.dto.Post
+import com.example.nework.model.FeedModelState
+import com.example.nework.model.MediaModel
+import com.example.nework.repository.post.PostRepository
+import com.example.nework.utils.SingleLiveEvent
 import java.io.File
 import javax.inject.Inject
 

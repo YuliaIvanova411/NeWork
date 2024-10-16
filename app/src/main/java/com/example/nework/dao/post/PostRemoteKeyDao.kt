@@ -8,20 +8,18 @@ import com.example.nework.entity.post.PostRemoteKeyEntity
 
 @Dao
 interface PostRemoteKeyDao {
-    @Query("SELECT COUNT(*) == 0 FROM PostEntity")
-    suspend fun isEmpty(): Boolean
 
-    @Query("SELECT max(`id`) FROM PostRemoteKeyEntity")
+    @Query("SELECT MAX(id) FROM PostRemoteKeyEntity")
     suspend fun max(): Int?
 
-    @Query("SELECT min(`id`) FROM PostRemoteKeyEntity")
+    @Query("SELECT MIN(id) FROM PostRemoteKeyEntity")
     suspend fun min(): Int?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(key: PostRemoteKeyEntity)
+    suspend fun insert(postRemoteKeyEntity: PostRemoteKeyEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(keys: List<PostRemoteKeyEntity>)
+    suspend fun insert(postRemoteKeyEntity: List<PostRemoteKeyEntity>)
 
     @Query("DELETE FROM PostRemoteKeyEntity")
     suspend fun removeAll()

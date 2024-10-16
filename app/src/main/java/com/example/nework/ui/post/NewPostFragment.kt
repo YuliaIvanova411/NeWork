@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.post
+package com.example.nework.ui.post
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -24,8 +24,11 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import ru.netology.nework.util.AndroidUtils
-import ru.netology.nework.util.StringArg
+import com.example.nework.ui.auth.RegisterFragment
+import com.example.nework.ui.dialog.BottomSheetImage
+import com.example.nework.ui.dialog.ExitPostEventDialog
+import com.example.nework.utils.AndroidUtils
+import com.example.nework.utils.StringArg
 
 
 @AndroidEntryPoint

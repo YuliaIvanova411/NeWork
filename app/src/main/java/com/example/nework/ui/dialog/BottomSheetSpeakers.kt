@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.dialog
+package com.example.nework.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import com.example.nework.adapter.OnInteractionListenerUser
+import com.example.nework.adapter.UserAdapter
 
 
 @AndroidEntryPoint

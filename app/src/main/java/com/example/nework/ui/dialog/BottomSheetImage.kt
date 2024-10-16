@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.dialog
+package com.example.nework.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

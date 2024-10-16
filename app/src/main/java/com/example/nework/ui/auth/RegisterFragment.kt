@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.auth
+package com.example.nework.ui.auth
 
 import android.os.Bundle
 import android.text.Editable
@@ -22,10 +22,10 @@ import com.example.nework.viewmodel.RegisterViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import ru.netology.nework.util.loadCircleCrop
-import ru.netology.nework.ui.dialog.BottomSheetImage
-import ru.netology.nework.ui.dialog.ConfirmSaveProfileDialog
-import ru.netology.nework.util.AndroidUtils
+import com.example.nework.utils.loadCircleCrop
+import com.example.nework.ui.dialog.BottomSheetImage
+import com.example.nework.ui.dialog.ConfirmSaveProfileDialog
+import com.example.nework.utils.AndroidUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint

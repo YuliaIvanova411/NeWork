@@ -4,37 +4,40 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.nework.dto.Job
 
+
 @Entity
 data class JobEntity(
-    @PrimaryKey
-    var id: Int,
-    var name: String,
-    var position: String,
-    var start: String,
-    var finish: String? = null,
-    var link: String? = null,
-    val ownedByMe: Boolean = false
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    val name: String,
+    val position: String,
+    val start: String,
+    val finish: String? = null,
+    val link: String? = null,
+    val ownedByMe: Boolean = false,
 ) {
-    fun toDto() = Job(
-        id = id,
-        name = name,
-        position = position,
-        start = start,
-        finish = finish,
-        link = link,
-        ownedByMe = ownedByMe
-    )
+    fun toDto() =
+        Job(
+            id,
+            name,
+            position,
+            start,
+            finish,
+            link,
+            ownedByMe,
+        )
 
     companion object {
-        fun fromDto(job: Job) = JobEntity(
-            id = job.id,
-            name = job.name,
-            position = job.position,
-            start = job.start,
-            finish = job.finish,
-            link = job.link,
-            ownedByMe = job.ownedByMe
-        )
+        fun fromDto(dto: Job) =
+            JobEntity(
+                dto.id,
+                dto.name,
+                dto.position,
+                dto.start,
+                dto.finish,
+                dto.link,
+                dto.ownedByMe,
+            )
     }
 }
 

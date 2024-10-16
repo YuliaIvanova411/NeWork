@@ -1,4 +1,4 @@
-package ru.netology.nework.ui
+package com.example.nework.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -24,7 +24,8 @@ import com.example.nework.viewmodel.PostViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import ru.netology.nework.util.AndroidUtils
+import com.example.nework.ui.dialog.ExitPostEventDialog
+import com.example.nework.utils.AndroidUtils
 import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter

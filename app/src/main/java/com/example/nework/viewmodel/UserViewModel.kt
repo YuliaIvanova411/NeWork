@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nework.auth.AppAuth
-import com.example.nework.dto.User
 import com.example.nework.repository.user.UserRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import com.example.nework.dto.User
+import com.example.nework.model.UsersModelState
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,133 +1,205 @@
 package com.example.nework.repository.event
 
-import androidx.paging.*
-import com.example.nework.api.ApiService
-import com.example.nework.dao.event.EventDao
-import com.example.nework.dao.event.EventRemoteKeyDao
-import com.example.nework.db.AppDatabase
-import com.example.nework.dto.Attachment
-import com.example.nework.dto.Event
-import com.example.nework.dto.FeedItem
-import com.example.nework.dto.Media
-import com.example.nework.entity.event.EventEntity
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.nework.error.ApiError
 import com.example.nework.error.NetworkError
-import com.example.nework.model.MediaModel
 import com.example.nework.error.UnknownError
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.IOException
+import okio.IOException
+import com.example.nework.api.ApiService
+import com.example.nework.dao.event.EventDao
+import com.example.nework.dao.event.EventRemoteKeyDao
+import com.example.nework.db.AppDb
+import com.example.nework.dto.Attachment
+import com.example.nework.dto.AttachmentType
+import com.example.nework.dto.Event
+import com.example.nework.dto.EventItem
+import com.example.nework.dto.Media
+import com.example.nework.entity.event.EventEntity
+import com.example.nework.entity.event.toEntity
+import com.example.nework.entity.toEntity
+import com.example.nework.model.MediaModel
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class EventRepositoryImpl @Inject constructor(
     private val eventDao: EventDao,
     private val apiService: ApiService,
     eventRemoteKeyDao: EventRemoteKeyDao,
-    appDb: AppDatabase
+    appDb: AppDb,
 ) : EventRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override val data: Flow<PagingData<FeedItem>> = Pager(
+    override val data: Flow<PagingData<EventItem>> = Pager(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
-        remoteMediator = EventRemoteMediator(
-            service = apiService,
-            appDb = appDb,
-            eventDao = eventDao,
-            eventRemoteKeyDao = eventRemoteKeyDao
-        ),
-        pagingSourceFactory = eventDao::getPagingSource
-    ).flow.map { it.map(EventEntity::toDto) }
+        pagingSourceFactory = { eventDao.allEventPaging() },
+        remoteMediator = EventRemoteMediator(apiService, eventDao, eventRemoteKeyDao, appDb),
+    ).flow
+        .map { it.map(EventEntity::toDto) }
 
-    override suspend fun save(event: Event) {
+    override suspend fun get() {
         try {
-            val response = apiService.createEvent(event)
-            if (!response.isSuccessful) {
-                throw ApiError(response.code(), response.message())
+            val eventsResponse = apiService.getAllEvent()
+            if (!eventsResponse.isSuccessful) {
+                throw ApiError(eventsResponse.code(), eventsResponse.message())
             }
-            val body = response.body() ?: throw ApiError(response.code(), response.message())
+
+            val body = eventsResponse.body() ?: throw ApiError(
+                eventsResponse.code(),
+                eventsResponse.message()
+            )
+            eventDao.insert(body.toEntity())
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError
+        }
+    }
+
+    override suspend fun likeById(authToken: String, id: Int, userId: Int) {
+        try {
+            val eventResponse = apiService.likeEventById(authToken, id)
+            if (!eventResponse.isSuccessful) {
+                throw ApiError(eventResponse.code(), eventResponse.message())
+            }
+            eventDao.likedById(id, userId)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError
+        }
+    }
+
+    override suspend fun unlikeById(authToken: String, id: Int, userId: Int) {
+        try {
+            val eventResponse = apiService.unlikeEventById(authToken, id)
+            if (!eventResponse.isSuccessful) {
+                throw ApiError(eventResponse.code(), eventResponse.message())
+            }
+            eventDao.unlikedById(id, userId)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError
+        }
+    }
+
+    override suspend fun participantById(authToken: String, id: Int, userId: Int) {
+        try {
+            val eventResponse = apiService.participantById(authToken, id)
+            if (!eventResponse.isSuccessful) {
+                throw ApiError(eventResponse.code(), eventResponse.message())
+            }
+            eventDao.participantById(id, userId)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError
+        }
+    }
+
+    override suspend fun unParticipantById(authToken: String, id: Int, userId: Int) {
+        try {
+            val eventResponse = apiService.unParticipantById(authToken, id)
+            if (!eventResponse.isSuccessful) {
+                throw ApiError(eventResponse.code(), eventResponse.message())
+            }
+            eventDao.unParticipantById(id, userId)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError
+        }
+    }
+
+    override suspend fun removeById(authToken: String, id: Int) {
+        try {
+            val eventResponse = apiService.removeEventById(authToken, id)
+            if (!eventResponse.isSuccessful) {
+                throw ApiError(eventResponse.code(), eventResponse.message())
+            }
+            eventDao.removeById(id)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError
+        }
+    }
+
+    override suspend fun save(authToken: String, event: Event) {
+        try {
+            val eventsResponse = apiService.saveEvent(authToken, event)
+            if (!eventsResponse.isSuccessful) {
+                throw ApiError(eventsResponse.code(), eventsResponse.message())
+            }
+
+            val body = eventsResponse.body() ?: throw ApiError(
+                eventsResponse.code(),
+                eventsResponse.message()
+            )
             eventDao.insert(EventEntity.fromDto(body))
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
+            e.printStackTrace()
             throw UnknownError
         }
-
     }
 
-    override suspend fun saveWithAttachment(event: Event, media: MediaModel) {
+    override suspend fun saveWithAttachment(
+        authToken: String,
+        event: Event,
+        mediaModel: MediaModel,
+        attachmentType: AttachmentType,
+    ) {
         try {
-            val uploadMedia = upload(media)
-            val response = apiService.createEvent(
-                event.copy(
-                    attachment = Attachment(uploadMedia.url, media.type)
+            val media = upload(authToken, mediaModel)
+            val eventsResponse = apiService.saveEvent(
+                authToken, event.copy(
+                    attachment = Attachment(media.url, attachmentType)
                 )
             )
-            if (!response.isSuccessful) {
-                throw ApiError(response.code(), response.message())
+            if (!eventsResponse.isSuccessful) {
+                throw ApiError(eventsResponse.code(), eventsResponse.message())
             }
-            val body = response.body() ?: throw ApiError(response.code(), response.message())
+
+            val body = eventsResponse.body() ?: throw ApiError(
+                eventsResponse.code(),
+                eventsResponse.message()
+            )
             eventDao.insert(EventEntity.fromDto(body))
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
+            e.printStackTrace()
             throw UnknownError
         }
     }
 
-    private suspend fun upload(media: MediaModel): Media {
+    private suspend fun upload(authToken: String, media: MediaModel): Media {
         val part = MultipartBody.Part.createFormData(
             "file", media.file.name, media.file.asRequestBody()
         )
-        val response = apiService.uploadMedia(part)
-        if (!response.isSuccessful) {
-            throw ApiError(response.code(), response.message())
+
+        val postsResponse = apiService.uploadMedia(authToken, part)
+        if (!postsResponse.isSuccessful) {
+            throw ApiError(postsResponse.code(), postsResponse.message())
         }
-        return requireNotNull(response.body())
+
+        return requireNotNull(postsResponse.body())
     }
-
-    override suspend fun likeById(event: Event) {
-        try {
-            val response =
-                if (!event.likedByMe) {
-                    apiService.likeEventById(event.id)
-                } else {
-                    apiService.dislikeEventById(event.id)
-                }
-            if (!response.isSuccessful) {
-                throw ApiError(response.code(), response.message())
-            }
-            val body = response.body() ?: throw ApiError(response.code(), response.message())
-            eventDao.insert(EventEntity.fromDto(body))
-        } catch (e: IOException) {
-            throw NetworkError
-        } catch (e: Exception) {
-            throw UnknownError
-        }
-    }
-
-    override suspend fun removeById(id: Int) {
-        eventDao.getEventById(id)?.let { eventToDelete ->
-            eventDao.removeById(id)
-            try {
-                val response = apiService.deleteEvent(id)
-                if (!response.isSuccessful) {
-                    eventDao.insert(eventToDelete)
-                    throw ApiError(response.code(), response.message())
-                }
-            } catch (e: IOException) {
-                eventDao.insert(eventToDelete)
-                throw NetworkError
-            } catch (e: Exception) {
-                eventDao.insert(eventToDelete)
-                throw UnknownError
-            }
-        }
-    }
-
-    override suspend fun getById(id: Int): Event? =
-        eventDao.getEventById(id)?.toDto()
-
 }

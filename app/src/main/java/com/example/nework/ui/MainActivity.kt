@@ -1,4 +1,4 @@
-package ru.netology.nework.ui
+package com.example.nework.ui
 
 import android.os.Bundle
 import androidx.activity.addCallback
@@ -21,7 +21,7 @@ import com.example.nework.viewmodel.AuthViewModel
 import com.example.nework.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import ru.netology.nework.util.loadCircleCrop
+import com.example.nework.utils.loadCircleCrop
 import javax.inject.Inject
 
 @AndroidEntryPoint

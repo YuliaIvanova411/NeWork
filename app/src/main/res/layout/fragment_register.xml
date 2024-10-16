@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/card_post_8"
-    tools:context=".ui.auth.SignUpFragment">
+    tools:context=".ui.auth.RegisterFragment">
 
     <ImageView
         android:id="@+id/preview_avatar"

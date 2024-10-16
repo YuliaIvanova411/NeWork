@@ -1,4 +1,4 @@
-package ru.netology.nework.ui.events
+package com.example.nework.ui.events
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,13 +13,17 @@ import androidx.paging.LoadState
 import com.example.nework.R
 import com.example.nework.auth.AppAuth
 import com.example.nework.databinding.FragmentEventsBinding
-import com.example.nework.dto.Event
 import com.example.nework.viewmodel.EventViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import ru.netology.nework.ui.post.NewPostFragment.Companion.textArg
+import com.example.nework.adapter.EventAdapter
+import com.example.nework.adapter.OnInteractionListenerEvent
+import com.example.nework.dto.Event
+import com.example.nework.ui.dialog.AuthDialog
+import com.example.nework.ui.dialog.BottomSheetSpeakers
+import com.example.nework.ui.post.NewPostFragment.Companion.textArg
 import javax.inject.Inject
 
 @AndroidEntryPoint
