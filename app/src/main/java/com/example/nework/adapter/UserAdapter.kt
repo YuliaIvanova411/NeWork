@@ -44,6 +44,7 @@ class UserViewHolder(
                     val urlAvatars = "${user.avatar}"
                     avatar.loadCircleCrop(urlAvatars)
                     userName.text = user.name
+                    login.text = user.login
 
                     checkUser.isChecked = user.isSelected
 
@@ -57,6 +58,7 @@ class UserViewHolder(
                     val urlAvatars = "${user.avatar}"
                     avatar.loadCircleCrop(urlAvatars)
                     userName.text = user.name
+                    login.text = user.login
 
                     checkUser.isVisible = false
                 }

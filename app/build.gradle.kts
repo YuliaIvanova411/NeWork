@@ -47,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -59,6 +60,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.material.v180)
     implementation (libs.dhaval2404.imagepicker)
     implementation (libs.github.glide)
     implementation (libs.yandex.maps.mobile)

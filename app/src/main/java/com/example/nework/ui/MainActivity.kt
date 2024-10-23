@@ -7,7 +7,9 @@ import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.MenuProvider
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -22,6 +24,7 @@ import com.example.nework.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import com.example.nework.utils.loadCircleCrop
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,22 +46,22 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        navHeaderBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
+//разобраться с гетхидервью нахуя он нужен вообще и сойдет ли гет  вместо него
+        navHeaderBinding = NavHeaderMainBinding.bind(binding.bottomNavigation.get(0))
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
         val previousMenuProvider: MenuProvider? = null
 
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
+        val mainLayout: CoordinatorLayout = binding.mainContainer
+        val navView: BottomNavigationView = binding.bottomNavigation
         val navController = this.findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_feed,
                 R.id.nav_events,
-                R.id.nav_my_wall,
-            ), drawerLayout
+                R.id.nav_users,
+            ), mainLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

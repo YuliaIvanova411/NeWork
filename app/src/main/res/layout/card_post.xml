@@ -23,32 +23,33 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/job"
+        app:layout_constraintBottom_toTopOf="@+id/published"
         app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
         tools:text="@tools:sample/full_names" />
 
-    <TextView
-        android:id="@+id/job"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/card_post_8"
-        android:ellipsize="end"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/published"
-        app:layout_constraintEnd_toStartOf="@id/menu"
-        app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toTopOf="@+id/avatar"
-        tools:text="@tools:sample/lorem" />
+<!--    <TextView-->
+<!--        android:id="@+id/job"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="@dimen/card_post_8"-->
+<!--        android:ellipsize="end"-->
+<!--        android:singleLine="true"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/published"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/menu"-->
+<!--        app:layout_constraintStart_toEndOf="@id/avatar"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/avatar"-->
+<!--        tools:text="@tools:sample/lorem" />-->
 
     <TextView
         android:id="@+id/published"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_post_8"
+        android:padding="@dimen/card_post_8"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/job"
+        app:layout_constraintTop_toBottomOf="@+id/author"
         tools:text="@tools:sample/date/ddmmyy" />
 
     <com.google.android.material.button.MaterialButton
@@ -75,6 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_post_8"
         android:autoLink="web"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrierTop"
         tools:text="@tools:sample/lorem[100]/random" />
 
@@ -105,14 +108,14 @@
         app:layout_constraintStart_toEndOf="@id/like"
         app:layout_constraintTop_toBottomOf="@id/barrierContent2" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/coords"
-        style="@style/Widget.AppTheme.CoordsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/post_coords"
-        app:layout_constraintStart_toEndOf="@id/share"
-        app:layout_constraintTop_toBottomOf="@id/barrierContent2" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/coords"-->
+<!--        style="@style/Widget.AppTheme.CoordsButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:contentDescription="@string/post_coords"-->
+<!--        app:layout_constraintStart_toEndOf="@id/share"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/barrierContent2" />-->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierContent2"

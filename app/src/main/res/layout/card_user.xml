@@ -6,15 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/card_post_16">
 
-    <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="@dimen/avatar"
-        android:layout_height="@dimen/avatar"
-        android:contentDescription="@string/post_avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
@@ -24,11 +15,36 @@
         android:singleLine="true"
         android:textSize="@dimen/card_post_24"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
         tools:ignore="SpUsage"
         tools:text="@tools:sample/full_names" />
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/card_post_16"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="@dimen/card_post_16"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        tools:ignore="SpUsage"
+        tools:text="@tools:sample/full_names" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/avatar"
+        android:layout_height="@dimen/avatar"
+        android:contentDescription="@string/post_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
     <CheckBox
         android:id="@+id/checkUser"

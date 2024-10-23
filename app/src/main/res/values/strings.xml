@@ -6,9 +6,9 @@
     <string name="action_profile">Profile</string>
 
     //navigation
-    <string name="menu_feed">Feed</string>
+    <string name="menu_feed">Posts</string>
     <string name="menu_events">Events</string>
-    <string name="menu_my_wall">My wall</string>
+    <string name="menu_users">Users</string>
     <string name="menu_new_post">New post</string>
     <string name="menu_new_event">New event</string>
     <string name="menu_new_job">New job</string>
@@ -80,6 +80,8 @@
     <string name="required_field">Required field!</string>
     <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="photo_error">Error</string>
+    <string name="posts">Posts</string>
+    <string name="events">Events</string>
 
     //My wall
     <string name="login_title">You must be logged in to view the list of posts</string>
@@ -119,5 +121,17 @@
     <string name="company_name_error">Company name isn\'t blank</string>
     <string name="position_error">Position isn\'t blank</string>
     <string name="date_start_error">Date start isn\'t blank</string>
+    <string name="wall">Wall</string>
+    <string name="jobs">Jobs</string>
+    <string name="dash">-</string>
+    <string name="users">Users</string>
+    <string name="clear">Clear</string>
+    <string name="menu_attachment">Attach</string>
+    <string name="menu_place">Place</string>
+    <string name="menu_photo">Photo</string>
+    <string name="save">Save</string>
+    <string name="events_online">Online</string>
+    <string name="likers">Likers</string>
+    <string name="participants">Participants</string>
 
 </resources>

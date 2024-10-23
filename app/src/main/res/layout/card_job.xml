@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_job"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,43 +16,62 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/position"
+            android:id="@+id/job_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="@dimen/card_post_16"
             android:textStyle="bold"
-            tools:ignore="SpUsage"
-            tools:text="@tools:sample/lorem[2]" />
+            android:textSize="@dimen/card_post_16"
+            android:layout_margin="@dimen/card_post_8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Student" />
 
         <TextView
-            android:id="@+id/nameCompany"
+            android:id="@+id/job_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:textColor="@color/black"
+            android:layout_margin="@dimen/card_post_8"
             android:textSize="@dimen/card_post_16"
-            tools:ignore="SpUsage"
-            tools:text="@tools:sample/lorem[2]" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/job_position"
+            tools:text="Netology" />
 
         <TextView
-            android:id="@+id/dateWork"
+            android:id="@+id/job_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textSize="@dimen/card_post_16"
-            tools:ignore="SpUsage"
-            tools:text="@tools:sample/date/ddmmyy" />
+            android:layout_margin="@dimen/card_post_8"
+            app:layout_constraintTop_toBottomOf="@id/job_name"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="April 2022"/>
+
+        <TextView
+            android:id="@+id/dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_post_8"
+            app:layout_constraintTop_toBottomOf="@id/job_name"
+            app:layout_constraintStart_toEndOf="@id/job_start"
+            android:text="@string/dash"/>
+
+        <TextView
+            android:id="@+id/job_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_post_8"
+            app:layout_constraintTop_toBottomOf="@id/job_name"
+            app:layout_constraintStart_toEndOf="@id/dash"
+            tools:text="June 2023"/>
 
         <TextView
             android:id="@+id/link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/card_post_8"
+            android:layout_margin="@dimen/card_post_8"
+            app:layout_constraintTop_toBottomOf="@id/job_start"
+            app:layout_constraintStart_toStartOf="parent"
             android:autoLink="web"
             android:ellipsize="end"
             android:singleLine="true"
@@ -60,7 +79,7 @@
             tools:ignore="SpUsage"
             tools:text="@tools:sample/lorem[2]" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"

@@ -6,18 +6,10 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/card_post_8">
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="@dimen/card_post_48"
-            android:layout_height="@dimen/card_post_48"
-            android:contentDescription="@string/post_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/userName"
@@ -30,10 +22,11 @@
             android:textSize="@dimen/card_post_16"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/login"
-            app:layout_constraintStart_toEndOf="@id/avatar"
-            app:layout_constraintTop_toTopOf="@+id/avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpUsage"
             tools:text="@tools:sample/lorem[2]" />
+
 
         <TextView
             android:id="@+id/login"
@@ -44,10 +37,19 @@
             android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/card_post_16"
-            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName"
             tools:ignore="SpUsage"
             tools:text="@tools:sample/lorem[2]" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/big_avatar_height"
+            android:contentDescription="@string/post_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login"
+            tools:src="@tools:sample/avatars" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier"
@@ -56,13 +58,46 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="avatar" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_post_16"
+            android:layout_marginTop="@dimen/card_post_16"
+            android:showDividers="middle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorColor="@null"
+            app:tabIndicatorGravity="stretch">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wall" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jobs" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/list_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey"
             android:layout_marginTop="@dimen/card_post_8"
-            app:layout_constraintBottom_toTopOf="@id/job_list"
+            android:background="@color/grey"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
             tools:layout_editor_absoluteX="8dp" />
 
         <TextView
@@ -73,9 +108,9 @@
             android:textColor="@color/black"
             android:textSize="@dimen/card_post_16"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/job_list"
-            app:layout_constraintEnd_toEndOf="@+id/job_list"
-            app:layout_constraintStart_toStartOf="@+id/job_list"
+            app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+            app:layout_constraintEnd_toEndOf="@id/tabLayout"
+            app:layout_constraintStart_toStartOf="@id/tabLayout"
             app:layout_constraintTop_toBottomOf="@+id/view"
             tools:ignore="SpUsage" />
 
@@ -84,23 +119,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/job_list"
-            app:layout_constraintEnd_toEndOf="@+id/job_list"
-            app:layout_constraintStart_toStartOf="@+id/job_list"
+            app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+            app:layout_constraintEnd_toEndOf="@id/tabLayout"
+            app:layout_constraintStart_toStartOf="@id/tabLayout"
             app:layout_constraintTop_toBottomOf="@+id/view" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/job_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/card_post_8"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barrier"
-            tools:listitem="@layout/card_job" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,6 +134,17 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:importantForAccessibility="no"
-        app:srcCompat="@drawable/ic_work" />
+        app:srcCompat="@drawable/ic_add" />
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/job_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="@dimen/big_avatar_height"-->
+<!--        android:scrollbars="vertical"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_anchor="@+id/constraintLayout"-->
+<!--        app:layout_anchorGravity="center"-->
+<!--        tools:listitem="@layout/card_job" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

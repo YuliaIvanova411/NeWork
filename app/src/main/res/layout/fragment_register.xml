@@ -13,7 +13,7 @@
         android:layout_height="@dimen/photo_avatar"
         android:layout_margin="@dimen/card_post_8"
         android:contentDescription="@string/sign_up_avatar"
-        android:src="@drawable/ic_person_add"
+        android:src="@drawable/ic_take_photo"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/nameLayout"
         app:layout_constraintEnd_toEndOf="parent"

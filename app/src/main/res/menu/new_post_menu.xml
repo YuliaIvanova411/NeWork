@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+<group>
+    <item
+        android:id="@+id/camera"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/menu_photo" />
+    <item
+        android:id="@+id/attachment"
+        android:icon="@drawable/ic_attach_file"
+        android:title="@string/menu_attachment" />
+    <item
+        android:id="@+id/nav_users"
+        android:icon="@drawable/ic_group"
+        android:title="@string/menu_users" />
+    <item
+        android:id="@+id/map_point"
+        android:icon="@drawable/ic_place"
+        android:title="@string/menu_place" />
+</group>
+</menu>

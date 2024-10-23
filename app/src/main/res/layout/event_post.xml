@@ -6,6 +6,22 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="?actionBarSize">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/avatar"
@@ -23,24 +39,36 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/job"
-        app:layout_constraintEnd_toStartOf="@id/menu"
+        app:layout_constraintBottom_toTopOf="@+id/published"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
         tools:text="@tools:sample/full_names" />
 
+<!--    <TextView-->
+<!--        android:id="@+id/job"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="@dimen/card_post_8"-->
+<!--        android:ellipsize="end"-->
+<!--        android:singleLine="true"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/barrierTop1"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/menu"-->
+<!--        app:layout_constraintStart_toEndOf="@id/avatar"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/avatar"-->
+<!--        tools:text="@tools:sample/lorem" />-->
+
     <TextView
-        android:id="@+id/job"
-        android:layout_width="0dp"
+        android:id="@+id/published"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/card_post_8"
-        android:ellipsize="end"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/barrierTop1"
-        app:layout_constraintEnd_toStartOf="@id/menu"
+        android:layout_marginStart="@dimen/card_post_8"
+        android:padding="@dimen/card_post_8"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toTopOf="@+id/avatar"
-        tools:text="@tools:sample/lorem" />
+        app:layout_constraintTop_toBottomOf="@+id/author"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
@@ -61,31 +89,33 @@
         app:constraint_referenced_ids="avatar,menu" />
 
     <TextView
+        android:id="@+id/event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_post_8"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preview"
+        tools:text="@string/events_online" />
+
+    <TextView
         android:id="@+id/dateEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_post_8"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrierTop1"
+        app:layout_constraintTop_toBottomOf="@id/event_type"
         tools:text="@tools:sample/date/ddmmyy" />
 
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/card_post_8"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrierTop1"
-        tools:text="@tools:sample/lorem" />
+
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierTop2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="type,dateEvent" />
+        app:constraint_referenced_ids="event_type,dateEvent" />
 
     <TextView
         android:id="@+id/content"
@@ -94,6 +124,7 @@
         android:layout_marginTop="@dimen/card_post_8"
         android:autoLink="web"
         app:layout_constraintTop_toBottomOf="@id/barrierTop2"
+        tools:layout_editor_absoluteX="4dp"
         tools:text="@tools:sample/lorem[100]/random" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -103,58 +134,236 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="content" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/like"
-        style="@style/Widget.AppTheme.LikeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="true"
-        android:contentDescription="@string/post_like"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrierContent2"
-        tools:text="@tools:sample/us_zipcodes" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/speakers_layout">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/speakers"
-        style="@style/Widget.AppTheme.GroupButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/speakers"
-        app:icon="@drawable/ic_group"
-        app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toTopOf="@id/barrierContent2"
-        tools:text="@tools:sample/us_zipcodes" />
+        <TextView
+                android:id="@+id/speakers_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_post_8"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textStyle="bold"
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/share"
-        style="@style/Widget.AppTheme.ShareButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/post_share"
-        app:layout_constraintStart_toEndOf="@id/speakers"
-        app:layout_constraintTop_toBottomOf="@id/barrierContent2" />
+                tools:text="@string/speakers" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/coords"
-        style="@style/Widget.AppTheme.CoordsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/post_coords"
-        app:layout_constraintStart_toEndOf="@id/share"
-        app:layout_constraintTop_toBottomOf="@id/barrierContent2" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/members"
-        style="@style/Widget.AppTheme.MembersButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:checkable="true"
-        android:contentDescription="@string/member"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrierContent2"
-        tools:text="@tools:sample/us_zipcodes" />
+<!--//TODO что-то сделать с набором аватарок и чтоб плюсик тоже-->
+
+            <ImageView
+                android:id="@+id/avatars"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
+                android:layout_margin="@dimen/card_post_8"
+                android:contentDescription="@string/post_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/speakers_list"
+                app:layout_constraintStart_toEndOf="parent"
+                tools:src="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/likers_layout">
+            <TextView
+                android:id="@+id/likers_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_post_8"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/like"
+                tools:text="@string/likers" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/like"
+                style="@style/Widget.AppTheme.LikeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_post_8"
+                android:checkable="true"
+                android:contentDescription="@string/post_like"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/likers_list"
+                tools:text="@tools:sample/us_zipcodes" />
+            <!--//TODO что-то сделать с набором аватарок и чтоб плюсик тоже-->
+<!--            <ImageView-->
+<!--                android:id="@+id/likers_avatars"-->
+<!--                android:layout_width="@dimen/avatar"-->
+<!--                android:layout_height="@dimen/avatar"-->
+<!--                android:layout_margin="@dimen/card_post_8"-->
+<!--                android:contentDescription="@string/post_avatar"-->
+<!--                app:layout_constraintStart_toEndOf="@id/like"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/likers_list"-->
+<!--                tools:src="@tools:sample/avatars" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <LinearLayout
+                android:id="@+id/group_photos_like"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layerType="hardware"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/like"
+                app:layout_constraintTop_toBottomOf="@id/likers_list">
+
+                <ImageView
+                    android:id="@+id/group_photo1"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginRight="4dip"
+                    tools:src="#f0f" />
+
+                <ImageView
+                    android:id="@+id/group_photo2"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginRight="4dip"
+                    tools:src="#f0f" />
+
+                <ImageView
+                    android:id="@+id/group_photo3"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginRight="4dip"
+                    tools:src="#f0f" />
+
+                <ImageView
+                    android:id="@+id/group_photo4"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginRight="4dip"
+                    tools:src="#f0f" />
+
+                <ImageView
+                    android:id="@+id/group_photo5"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginRight="4dip"
+                    tools:src="#f0f" />
+
+                <TextView
+                    android:id="@+id/group_more_like"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginRight="4dip"
+                    android:background="@drawable/ic_add"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:textColor="#CFFF"
+                    android:textSize="9dip"
+                    android:textStyle="bold"
+                    tools:text="+99" />
+
+            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/participant_layout">
+            <TextView
+                android:id="@+id/participant_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_post_8"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/participants"
+                tools:text="@string/participants" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/participants"
+                    style="@style/Widget.AppTheme.GroupButton"
+                    android:layout_width="98dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="@dimen/card_post_8"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/speakers"
+                    app:icon="@drawable/ic_group"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/participant_list"
+                    tools:text="@tools:sample/us_zipcodes" />
+
+                <LinearLayout
+                    android:id="@+id/group_photos_part"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:layerType="hardware"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/participants"
+                    app:layout_constraintTop_toBottomOf="@id/participant_list">
+
+                    <ImageView
+                        android:id="@+id/group_photo01"
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_marginRight="4dip"
+                        tools:src="#f0f" />
+
+                    <ImageView
+                        android:id="@+id/group_photo02"
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_marginRight="4dip"
+                        tools:src="#f0f" />
+
+                    <ImageView
+                        android:id="@+id/group_photo03"
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_marginRight="4dip"
+                        tools:src="#f0f" />
+
+                    <ImageView
+                        android:id="@+id/group_photo04"
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_marginRight="4dip"
+                        tools:src="#f0f" />
+
+                    <ImageView
+                        android:id="@+id/group_photo05"
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_marginRight="4dip"
+                        tools:src="#f0f" />
+
+                    <TextView
+                        android:id="@+id/group_more_part"
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_marginRight="4dip"
+                        android:background="@drawable/ic_add"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:textColor="#CFFF"
+                        android:textSize="9dip"
+                        android:textStyle="bold"
+                        tools:text="+99" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--//TODO что-то сделать c чтоб карта грузилась или просто картинки достаточно или шо?-->
+            <com.yandex.mapkit.mapview.MapView
+                android:id="@+id/mapview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierContent2"
@@ -171,7 +380,9 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@+id/event_type"
         tools:src="@tools:sample/avatars" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

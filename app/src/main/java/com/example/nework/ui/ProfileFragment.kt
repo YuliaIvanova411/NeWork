@@ -20,8 +20,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import com.example.nework.adapter.JobAdapter
 import com.example.nework.adapter.OnInteractionListenerJob
+import com.example.nework.adapter.ViewPagerAdapter
 import com.example.nework.dto.Job
 import com.example.nework.utils.loadCircleCrop
+import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -74,7 +76,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        binding.jobList.adapter = jobAdapter
+            //  binding.jobList.adapter = jobAdapter
 
         lifecycleScope.launchWhenCreated {
             jobViewModel.data.collectLatest {
@@ -98,6 +100,12 @@ class ProfileFragment : Fragment() {
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_newJobFragment)
         }
+
+        binding.listContainer.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        TabLayoutMediator(binding.tabLayout, binding.listContainer) { tab, position ->
+            val feedList = listOf(getString(R.string.wall), getString(R.string.jobs))
+            tab.text = feedList[position]
+        }.attach()
 
         return binding.root
     }

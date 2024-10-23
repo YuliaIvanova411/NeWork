@@ -75,13 +75,12 @@ class EventViewHolder(
             avatar.loadCircleCrop(urlAvatars)
 
             author.text = event.author
-            job.text = event.authorJob
 
             val dateTime = OffsetDateTime.parse(event.datetime).toLocalDateTime()
             val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy в HH:mm")
             dateEvent.text = dateTime.format(formatter)
 
-            type.text = event.type.toString()
+            eventType.text = event.type.toString()
             content.text =
                 if (event.link != null) (event.content + "\n" + event.link) else (event.content)
 
